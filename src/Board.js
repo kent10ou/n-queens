@@ -47,7 +47,7 @@
         this.hasColConflictAt(colIndex) ||
         this.hasMajorDiagonalConflictAt(this._getFirstRowColumnIndexForMajorDiagonalOn(rowIndex, colIndex)) ||
         this.hasMinorDiagonalConflictAt(this._getFirstRowColumnIndexForMinorDiagonalOn(rowIndex, colIndex))
-      );
+        );
     },
 
     hasAnyQueensConflicts: function() {
@@ -58,7 +58,7 @@
       return (
         0 <= rowIndex && rowIndex < this.get('n') &&
         0 <= colIndex && colIndex < this.get('n')
-      );
+        );
     },
 
 
@@ -69,7 +69,7 @@
     \__ \ || (_| | |  | |_  | | | |  __/ | |  __/_
     |___/\__\__,_|_|   \__| |_| |_|\___|_|  \___(_)
 
- */
+    */
     /*=========================================================================
     =                 TODO: fill in these Helper Functions                    =
     =========================================================================*/
@@ -79,12 +79,51 @@
     //
     // test if a specific row on this board contains a conflict
     hasRowConflictAt: function(rowIndex) {
-      return false; // fixme
+      // compare the first row: first column to the first row : second column
+      // if both are > 0, then return true
+      // iteration: if the value of two or more items in the row is > 0 
+      // if the index is greater than 0 AND 
+
+
+      var thisRow = this.attributes[rowIndex];
+      var hasRowConflict = false;
+      for (var i = 0; i < thisRow; i++) {
+        for (var j = 0; j < thisRow; j++) {
+          if ((thisRow[i] > 0) && (thisRow[j] > 0)) {
+            hasRowConflict = true;
+          }
+        }
+      }
+
+      return hasRowConflict;  
+
+      // if ( (this.attributes[0][0] > 0 ) && ( this.attributes[0][1] > 0) ) {
+      //   return true;
+
+      // if row 0 contains  two or more indices containing value > 0 then return false
+      // console.log('thisboard: ', this.board);
+      // if (this.board[0])
     },
+
 
     // test if any rows on this board contain conflicts
     hasAnyRowConflicts: function() {
-      return false; // fixme
+      var isConflict = false;
+
+      for (var i = 0; i < this.attributes; i++) {
+       
+       // if any row has a conflict
+          //evaluate if any of the rows has a conflict
+              //evaluate each of the rows 
+              //if any of the rows show TRUE for this.hasRowConflictAt() THEN
+                  //pop out and return TRUE 
+       // return true
+
+        if (this.hasRowConflictAt(i)) {
+          isConflict = true;
+        }
+      }
+      return isConflict;
     },
 
 
@@ -137,12 +176,17 @@
 
   });
 
-  var makeEmptyMatrix = function(n) {
+var makeEmptyMatrix = function(n) {
+  return _(_.range(n)).map(function() {
     return _(_.range(n)).map(function() {
-      return _(_.range(n)).map(function() {
-        return 0;
-      });
+      return 0;
     });
-  };
+  });
+};
 
 }());
+
+testBoard = new Board({n:5});
+    // console.log(this.board1.hasRowConflictAt(0));
+    console.log('testBoard: ', testBoard);
+    console.log('changes: ', testBoard.attributes);
