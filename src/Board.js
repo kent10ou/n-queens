@@ -83,18 +83,20 @@
       // if both are > 0, then return true
       // iteration: if the value of two or more items in the row is > 0 
       // if the index is greater than 0 AND 
-
-
-      var thisRow = this.attributes[rowIndex];
+      // debugger;
       var hasRowConflict = false;
-      for (var i = 0; i < thisRow; i++) {
-        for (var j = 0; j < thisRow; j++) {
-          if ((thisRow[i] > 0) && (thisRow[j] > 0)) {
-            hasRowConflict = true;
+      var thisRow = this.attributes;
+      for (var key in this.attributes) {
+        if (Array.isArray(thisRow[rowIndex])) {
+          for (var i = 0; i < thisRow[rowIndex]; i++) { 
+            for (var j = 0; j < thisRow[rowIndex]; j++) { // this nested for-loop should be replaced with functionality that has a better time-complexity
+              if ((thisRow[rowIndex][i] > 0) && (thisRow[rowIndex][j] > 0)) {
+                hasRowConflict = true;
+              }    
+            }                
           }
         }
       }
-
       return hasRowConflict;  
 
       // if ( (this.attributes[0][0] > 0 ) && ( this.attributes[0][1] > 0) ) {
@@ -105,12 +107,20 @@
       // if (this.board[0])
     },
 
-
     // test if any rows on this board contain conflicts
     hasAnyRowConflicts: function() {
+      
       var isConflict = false;
+      
+      //for rowIndex
 
-      for (var i = 0; i < this.attributes; i++) {
+      //if this.attributes has a length of 4 then assess the hasRowConflictAt funtion using the arugments 0,1,2,3.
+
+      //assess the hasRowConflictAt funtion this.attributes.length times beginning at this.attibutes[0] and ending at this.attrubutes.length-1
+
+        this.attributes.length
+
+      // for (var i = 0; i < this.attributes; i++) {
        
        // if any row has a conflict
           //evaluate if any of the rows has a conflict
@@ -118,12 +128,18 @@
               //if any of the rows show TRUE for this.hasRowConflictAt() THEN
                   //pop out and return TRUE 
        // return true
+       //reduce has 3 things: collection, callback, and memoize
+       //set colelction to this.attributes; set callback to this.hasrOw... adn set memoize to false.
+      return _.reduce(this.attributes, this.hasRowConflictAt, false)
 
-        if (this.hasRowConflictAt(i)) {
-          isConflict = true;
-        }
-      }
-      return isConflict;
+
+       // _.each(this.attributes, this.hasRowConflictAt);
+
+      //   if (this.hasRowConflictAt(i)) {
+      //     isConflict = true;
+      //   }
+      // }
+      // return isConflict;
     },
 
 
