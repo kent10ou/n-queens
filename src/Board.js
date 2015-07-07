@@ -84,64 +84,50 @@
       // iteration: if the value of two or more items in the row is > 0 
       // if the index is greater than 0 AND 
       // debugger;
+      var thisRow = this.attributes[rowIndex];
       var hasRowConflict = false;
-      var thisRow = this.attributes;
-      for (var key in this.attributes) {
-        if (Array.isArray(thisRow[rowIndex])) {
-          for (var i = 0; i < thisRow[rowIndex]; i++) { 
-            for (var j = 0; j < thisRow[rowIndex]; j++) { // this nested for-loop should be replaced with functionality that has a better time-complexity
-              if ((thisRow[rowIndex][i] > 0) && (thisRow[rowIndex][j] > 0)) {
-                hasRowConflict = true;
-              }    
-            }                
-          }
-        }
+      var tempVar = _.reduce(thisRow, function(a, b) {
+        return a+b;
+      }, 0)
+
+      if (tempVar > 1) {
+          hasRowConflict = true;
       }
-      return hasRowConflict;  
 
-      // if ( (this.attributes[0][0] > 0 ) && ( this.attributes[0][1] > 0) ) {
-      //   return true;
-
-      // if row 0 contains  two or more indices containing value > 0 then return false
-      // console.log('thisboard: ', this.board);
-      // if (this.board[0])
+      return hasRowConflict;
     },
+
+
 
     // test if any rows on this board contain conflicts
     hasAnyRowConflicts: function() {
-      
-      var isConflict = false;
-      
-      //for rowIndex
-
-      //if this.attributes has a length of 4 then assess the hasRowConflictAt funtion using the arugments 0,1,2,3.
-
-      //assess the hasRowConflictAt funtion this.attributes.length times beginning at this.attibutes[0] and ending at this.attrubutes.length-1
-
-        this.attributes.length
-
-      // for (var i = 0; i < this.attributes; i++) {
-       
-       // if any row has a conflict
-          //evaluate if any of the rows has a conflict
-              //evaluate each of the rows 
-              //if any of the rows show TRUE for this.hasRowConflictAt() THEN
-                  //pop out and return TRUE 
-       // return true
-       //reduce has 3 things: collection, callback, and memoize
-       //set colelction to this.attributes; set callback to this.hasrOw... adn set memoize to false.
-      return _.reduce(this.attributes, this.hasRowConflictAt, false)
-
-
-       // _.each(this.attributes, this.hasRowConflictAt);
-
-      //   if (this.hasRowConflictAt(i)) {
-      //     isConflict = true;
-      //   }
-      // }
-      // return isConflict;
+      var bool = false;
+      //for each row, pass in the row number
+      for (var key in this.attributes) {
+        if (Array.isArray(this.attributes[key])){ //YES
+            if (this.hasRowConflictAt(key)) {
+                bool = true;
+              }
+          };
+      };    
+      return bool;
     },
 
+
+    hasAnyRowConflicts: function() {
+      var bool = false;
+      //for each row, pass in the row number
+      for (var key in this.attributes) {
+        if (Array.isArray(this.attributes[key])){
+          for (var i = 0; i < this.attributes[key].length; i++)
+            var tempVar = this.hasRowConflictAt(i);
+              if (tempVar) {
+                bool = true;
+              }
+          };
+      };    
+      return bool;
+    },
 
 
     // COLUMNS - run from top to bottom
