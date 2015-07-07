@@ -168,7 +168,7 @@
         }
         tempArr.push(value);
       }
-      console.log('tempArray: ', tempArr);
+      // console.log('tempArray: ', tempArr);
       var reduction = _.reduce(tempArr, function (a, b) {
         return a+b;
       });
@@ -213,7 +213,7 @@
         }
         tempArr.push(value);
       }
-      console.log('tempArray: ', tempArr);
+      // console.log('tempArray: ', tempArr);
       var reduction = _.reduce(tempArr, function (a, b) {
         return a+b;
       });
@@ -253,7 +253,7 @@ var makeEmptyMatrix = function(n) {
 
 }());
 
-testBoard = new Board({n:5});
-    // console.log(this.board1.hasRowConflictAt(0));
-    console.log('testBoard: ', testBoard);
-    console.log('changes: ', testBoard.attributes);
+// testBoard = new Board({n:5});
+    // console.log('testBoard: ', testBoard);
+    // console.log('changes: ', testBoard.attributes);
+
