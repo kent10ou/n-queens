@@ -168,7 +168,7 @@
         }
         tempArr.push(value);
       }
-      console.log('tempArrarrrrray: ', tempArr);
+      console.log('tempArray: ', tempArr);
       var reduction = _.reduce(tempArr, function (a, b) {
         return a+b;
       });
@@ -203,12 +203,39 @@
     //
     // test if a specific minor diagonal on this board contains a conflict
     hasMinorDiagonalConflictAt: function(minorDiagonalColumnIndexAtFirstRow) {
-      return false; // fixme
+      var minDiagBool = false;
+      var tempArr = [];
+
+      for (var i = 0; i < this.attributes.n; i++) {
+        var value = this.attributes[i][minorDiagonalColumnIndexAtFirstRow-i]
+        if (value === undefined) { 
+          value = 0;
+        }
+        tempArr.push(value);
+      }
+      console.log('tempArray: ', tempArr);
+      var reduction = _.reduce(tempArr, function (a, b) {
+        return a+b;
+      });
+
+      //if x condition is met then majDiagBool = true
+      if (reduction > 1) {
+        minDiagBool = true;
+      };
+
+      return minDiagBool;
     },
 
     // test if any minor diagonals on this board contain conflicts
     hasAnyMinorDiagonalConflicts: function() {
-      return false; // fixme
+      var bool = false;
+      var length = this.attributes.n;
+      for (var i = 2*length; i >= 0; i--) {
+        if (this.hasMinorDiagonalConflictAt(i)) {
+          bool = true;
+        }
+      }
+      return bool;
     }
 
     /*--------------------  End of Helper Functions  ---------------------*/
