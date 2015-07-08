@@ -22,31 +22,51 @@ window.findNRooksSolution = function(n) {
   
   testBoard = new Board({n:n});
 
-  for (var i = 0; i < n ; i++) { 
-    for (var j = 0; j < n; j++) {
-      if (!this.hasRowConflictAt(i) && !this.hasColConflictAt(j)) {
-        testBoard.togglepiece(i, j);
-        console.log('testBoard attributes: ', testBoard.attributes);
-      }
-    }
-  };
+  //testBoard.togglepiece(0, 0);
 
-  // for (var i = 0; i < chessBoard.length)
+  // for (var i = 0; i < n ; i++) { 
+  //   for (var j = 0; j < n; j++) {
+  //     if (!this.hasRowConflictAt(i) && !this.hasColConflictAt(j)) {
+  //        testBoard.togglepiece (i, j+1);
+  //     }
+  //   }
+
+  //   if (follows condition of other methods) {
+  //    do nothing and return testBoard.changed;
+  //   }
+  //   if (!follows condition of other methods) {
+  //     testBoard.togglepiece(i, j+1)
+    
+   // we could create a reduction were we sum the n arrays that make up the testBoard;
+  // n then sum up all of these into a variable and compare this variable to n.
+    //Once it equals n and all rook-conflict conditions have been avoided (see below) we will log 1 solution.
 
 
-  console.log('Single solution for ' + n + ' rooks:', JSON.stringify(solution));
-
-  return testBoard.attributes;
+  return testBoard.changed;
+console.log('Single solution for ' + n + ' rooks:', JSON.stringify(solution));
 };
-
 
 
 // return the number of nxn chessboards that exist, with n rooks placed such that none of them can attack each other
 window.countNRooksSolutions = function(n) {
-  var solutionCount = 0; //fixme
-  if (this.findNRooksSolution) {
-    solutionCount++;
+  var solutionCount = 0; 
+  var tempBoard = new Board;
+  function rooks (row) {
+    if (row === n) {
+      solutionCount++;
+      return;
+    }
+    for (var i = 0; i < n; i++) {
+      tempBoard.togglePiece(row, i)
+      if (!hasAnyRooksConflicts) {
+        rooks(row);
+      }
+      tempBoard.togglePiece(row, i);  
+    }
+    return solutionCount;
   }
+
+  
   console.log('Number of solutions for ' + n + ' rooks:', solutionCount);
   return solutionCount;
 };
@@ -70,4 +90,5 @@ window.countNQueensSolutions = function(n) {
   return solutionCount;
 };
 
+testBoard2 = new Board({n:5});
 
